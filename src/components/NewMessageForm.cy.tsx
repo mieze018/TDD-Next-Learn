@@ -12,5 +12,11 @@ describe('<NewMessageForm />', () => {
       sendMessage()
       cy.get('[data-testid="messageText"]').should('have.value', '')
     })
+    it('onSendが呼ばれる', () => {
+      const onSend = cy.spy()
+      cy.mount(<NewMessageForm onSend={onSend} />)
+      sendMessage()
+      expect(onSend).to.be.calledWith('message')
+    })
   })
 })

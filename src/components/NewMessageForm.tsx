@@ -1,10 +1,15 @@
 import { useState } from 'react'
 
-export const NewMessageForm = () => {
+export const NewMessageForm: React.FC<{
+  onSend?: (message: string) => void
+}> = ({ onSend }) => {
   const [message, setMessage] = useState('')
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setMessage(e.target.value)
-  const handleSend = () => setMessage('')
+  const handleSend = () => {
+    if (onSend) onSend(message)
+    setMessage('')
+  }
   return (
     <>
       <input
